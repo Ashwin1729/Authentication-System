@@ -2,6 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 
 const userRoutes = require("./routes/userRoutes");
+const { errorHandler } = require("./middlewares/errorMiddleware");
 const connectMongoDB = require("./config/mongoDBConfig");
 
 const server = express();
@@ -14,6 +15,7 @@ server.use(express.json());
 // });
 
 server.use("/api/users", userRoutes);
+server.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
