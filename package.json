@@ -4,7 +4,9 @@
   "description": "A Quantum IT Authentication System",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon backend/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm install"
   },
   "author": "Ashwin Dhuriya",
   "license": "ISC",
