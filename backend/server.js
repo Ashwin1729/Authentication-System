@@ -1,6 +1,8 @@
 const express = require("express");
 const dotenv = require("dotenv");
 
+const connectMongoDB = require("./config/mongoDBConfig");
+
 const server = express();
 dotenv.config();
 
@@ -12,6 +14,9 @@ server.get("/", (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 
-server.listen(PORT, () => {
-  console.log(`Server started on port ${PORT}`);
+connectMongoDB((client) => {
+  console.log("MongoDB connected sucessfully!");
+  server.listen(PORT, () => {
+    console.log(`Server started on port ${PORT}`);
+  });
 });
