@@ -18,14 +18,14 @@ import hideSvg from "../assets/hide.svg";
 import { Link, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 // import { AppContext } from "../../context/application-context";
-// import "react-toastify/dist/ReactToastify.css";
-// import axios from "axios";
-// import {
-//   notifyIncompleteFields,
-//   notifyError,
-//   notifyLoginSuccessful,
-//   notifyAlreadyLoggedIn,
-// } from "../../utils/toastify-objects";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+import {
+  notifyIncompleteFields,
+  notifyError,
+  notifyLoginSuccessful,
+  notifyAlreadyLoggedIn,
+} from "./utils/toastify-objects";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -39,43 +39,45 @@ const Login = () => {
   //   const user = appCtx.user;
   //   const setUser = appCtx.setUser;
 
-  //   useEffect(() => {
-  //     if (user) {
-  //       notifyAlreadyLoggedIn();
-  //       navigate("/");
-  //     }
-  //   });
+  useEffect(() => {
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    if (userInfo) {
+      notifyAlreadyLoggedIn();
+      navigate("/");
+    }
+  });
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const submitHandler = async (event) => {
-    // event.preventDefault();
-    // setLoading(true);
-    // if (!email || !password) {
-    //   notifyIncompleteFields();
-    //   setLoading(false);
-    //   return;
-    // }
-    // try {
-    //   const config = {
-    //     headers: {
-    //       "Content-type": "application/json",
-    //     },
-    //   };
-    //   const { data } = await axios.post(
-    //     "/api/users/login",
-    //     { email, password },
-    //     config
-    //   );
-    //   notifyLoginSuccessful();
-    //   setUser(data);
-    //   localStorage.setItem("userInfo", JSON.stringify(data));
-    //   setLoading(false);
-    //   navigate("/");
-    // } catch (error) {
-    //   notifyError();
-    //   setLoading(false);
-    // }
+    event.preventDefault();
+    setLoading(true);
+
+    if (!email || !password) {
+      notifyIncompleteFields();
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+      const { data } = await axios.post(
+        "/api/users/login",
+        { email, password },
+        config
+      );
+      notifyLoginSuccessful();
+      localStorage.setItem("userInfo", JSON.stringify(data));
+      setLoading(false);
+      navigate("/");
+    } catch (error) {
+      notifyError();
+      setLoading(false);
+    }
   };
 
   return (
