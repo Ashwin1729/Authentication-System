@@ -2,7 +2,7 @@
 
 Its a simple full stack Authentication System.
 
-Deployment link -
+Deployment link - https://authentication-system-jpvy.onrender.com/
 
 Test data for login -
 
