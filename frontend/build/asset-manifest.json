@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/static/css/main.c7f87686.css",
+    "main.js": "/static/js/main.09d342dc.js",
+    "static/media/quantum_logo.png": "/static/media/quantum_logo.d31fd3cc69f468bb0cf6.png",
+    "static/media/avatar_3.jpeg": "/static/media/avatar_3.5f56614a2afcaba132e1.jpeg",
+    "static/media/avatar_1.jpg": "/static/media/avatar_1.242dff7ea1b58a7381ee.jpg",
+    "static/media/avatar_5.jpg": "/static/media/avatar_5.82d56562e1273eff90ed.jpg",
+    "static/media/avatar_4.jpg": "/static/media/avatar_4.6aab68b853f88e1f343e.jpg",
+    "static/media/avatar_2.jpg": "/static/media/avatar_2.62eb5fa7e0e92ffc3826.jpg",
+    "static/media/hide.svg": "/static/media/hide.84849da0c16fde6c00098d30432c241a.svg",
+    "index.html": "/index.html",
+    "static/media/show.svg": "/static/media/show.435abac1edb41fa4db9a6cd8ee1e6697.svg",
+    "main.c7f87686.css.map": "/static/css/main.c7f87686.css.map",
+    "main.09d342dc.js.map": "/static/js/main.09d342dc.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c7f87686.css",
+    "static/js/main.09d342dc.js"
+  ]
+}
