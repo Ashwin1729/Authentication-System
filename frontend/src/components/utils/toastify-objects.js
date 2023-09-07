@@ -13,6 +13,18 @@ export const notifyLoginSuccessful = () =>
     theme: "light",
   });
 
+export const notifyRegisterationSuccessful = () =>
+  toast.success("Registeration Successful !", {
+    position: "bottom-left",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: false,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+  });
+
 export const notifyIncompleteFields = () =>
   toast.warn("Please fill all the details !", {
     position: "bottom-left",

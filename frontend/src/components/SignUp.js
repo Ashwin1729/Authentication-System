@@ -17,28 +17,24 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./SignUp.module.css";
 // import { AppContext } from "../../context/application-context";
-// import "react-toastify/dist/ReactToastify.css";
-// import axios from "axios";
-// import {
-//   notifyIncompleteFields,
-//   notifyError,
-//   notifyPasswordMatch,
-//   notifyRegisterationSuccessful,
-//   notifyAlreadyLoggedIn,
-// } from "../../utils/toastify-objects";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+import {
+  notifyIncompleteFields,
+  notifyError,
+  notifyRegisterationSuccessful,
+  notifyAlreadyLoggedIn,
+} from "./utils/toastify-objects";
 
 const SignUp = () => {
-  const [showPassword, setShowPassword] = useState(false);
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const showConfirmPasswordHandler = () =>
-    setShowConfirmPassword((show) => !show);
-
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [birthDate, setBirthDate] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const navigate = useNavigate();
 
@@ -46,56 +42,48 @@ const SignUp = () => {
   //   const user = appCtx.user;
   //   const setUser = appCtx.setUser;
 
-  //   useEffect(() => {
-  //     if (user) {
-  //       notifyAlreadyLoggedIn();
-  //       navigate("/");
-  //     }
-  //   });
+  useEffect(() => {
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    if (userInfo) {
+      notifyAlreadyLoggedIn();
+      navigate("/");
+    }
+  });
 
   const submitHandler = async (event) => {
     event.preventDefault();
+    setLoading(true);
 
-    console.log({
-      name,
-      email,
-      birthDate,
-      password,
-    });
-    // if (!fullName || !email || !username || !password || !confirmPassword) {
-    //   notifyIncompleteFields();
-    //   console.log("............1");
-    //   return;
-    // }
-    // if (password !== confirmPassword) {
-    //   notifyPasswordMatch();
-    //   console.log("............2");
-    //   return;
-    // }
-    // try {
-    //   const config = {
-    //     headers: {
-    //       "Content-type": "application/json",
-    //     },
-    //   };
-    //   const { data } = await axios.post(
-    //     "/api/users/sign_up",
-    //     {
-    //       name: fullName,
-    //       email,
-    //       password,
-    //       username,
-    //       confirmPassword,
-    //     },
-    //     config
-    //   );
-    //   notifyRegisterationSuccessful();
-    //   setUser(data);
-    //   localStorage.setItem("userInfo", JSON.stringify(data));
-    //   navigate("/");
-    // } catch (error) {
-    //   notifyError();
-    // }
+    if (!name || !email || !birthDate || !password) {
+      notifyIncompleteFields();
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+      const { data } = await axios.post(
+        "/api/users/sign_up",
+        {
+          name,
+          birthDate,
+          email,
+          password,
+        },
+        config
+      );
+      notifyRegisterationSuccessful();
+      localStorage.setItem("userInfo", JSON.stringify(data));
+      setLoading(false);
+      navigate("/");
+    } catch (error) {
+      notifyError();
+      setLoading(false);
+    }
   };
 
   return (
