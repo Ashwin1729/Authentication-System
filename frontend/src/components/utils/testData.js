@@ -76,12 +76,12 @@ export const columnsData = [
             justifyContent: "center",
             alignItems: "center",
             margin: " 0 0.2rem",
-            padding: "1px",
+            padding: "2px",
             fontSize: "small",
             color: "white",
             fontWeight: "400",
             borderRadius: "500px",
-            width: "5rem",
+            width: "6rem",
             backgroundColor: color,
           }}
         >
@@ -189,12 +189,12 @@ export const userColumnsData = [
             justifyContent: "center",
             alignItems: "center",
             margin: " 0 0.2rem",
-            padding: "1px",
+            padding: "2px",
             fontSize: "small",
             color: "white",
             fontWeight: "400",
             borderRadius: "500px",
-            width: "5rem",
+            width: "6rem",
             backgroundColor: color,
           }}
         >

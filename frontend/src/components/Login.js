@@ -1,24 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Login.module.css";
-// import { TextField } from "@mui/material";
-
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
-
-// import FormControl from "@mui/material/FormControl";
-// import InputLabel from "@mui/material/InputLabel";
-// import Input from "@mui/material/Input";
-// import InputAdornment from "@mui/material/InputAdornment";
-// import Visibility from "@mui/icons-material/Visibility";
-// import VisibilityOff from "@mui/icons-material/VisibilityOff";
-// import IconButton from "@mui/material/IconButton";
-import showSvg from "../assets/show.svg";
-import hideSvg from "../assets/hide.svg";
 import { Link, useNavigate } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
-// import { AppContext } from "../../context/application-context";
-import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import {
   notifyIncompleteFields,
@@ -26,6 +11,11 @@ import {
   notifyLoginSuccessful,
   notifyAlreadyLoggedIn,
 } from "./utils/toastify-objects";
+import showSvg from "../assets/show.svg";
+import hideSvg from "../assets/hide.svg";
+import Spinner from "react-bootstrap/Spinner";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -34,10 +24,6 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
-
-  //   const appCtx = useContext(AppContext);
-  //   const user = appCtx.user;
-  //   const setUser = appCtx.setUser;
 
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
@@ -119,9 +105,17 @@ const Login = () => {
               </div>
             </Form.Group>
           </div>
-          <Button className={styles.submit_button} type="submit">
-            Log In
-          </Button>
+          {loading && (
+            <div className={styles.spinner}>
+              <Spinner animation="border" variant="primary" />
+            </div>
+          )}
+
+          {!loading && (
+            <Button className={styles.submit_button} type="submit">
+              Log In
+            </Button>
+          )}
         </Form>
       </div>
 
@@ -136,43 +130,5 @@ const Login = () => {
     </div>
   );
 };
-
-{
-  /*  <div className={styles.form_field}>
-            <TextField
-              id="standard-basic"
-              label="Email / Username"
-              variant="standard"
-              fullWidth
-              size="small"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div className={styles.form_field}>
-            <FormControl sx={{ width: "100%" }} variant="standard">
-              <InputLabel htmlFor="standard-adornment-password">
-                Password
-              </InputLabel>
-              <Input
-                id="standard-adornment-password"
-                type={showPassword ? "text" : "password"}
-                onChange={(e) => setPassword(e.target.value)}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
-            </FormControl>
-          </div>
-          <button className={styles.submit_button} type="submit">
-            Log In
-          </button> */
-}
 
 export default Login;

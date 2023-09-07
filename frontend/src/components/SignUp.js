@@ -1,23 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
-// import { TextField } from "@mui/material";
-// import FormControl from "@mui/material/FormControl";
-// import InputLabel from "@mui/material/InputLabel";
-// import Input from "@mui/material/Input";
-// import InputAdornment from "@mui/material/InputAdornment";
-// import Visibility from "@mui/icons-material/Visibility";
-// import VisibilityOff from "@mui/icons-material/VisibilityOff";
-// import IconButton from "@mui/material/IconButton";
+import React, { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
-import showSvg from "../assets/show.svg";
-import hideSvg from "../assets/hide.svg";
-import "bootstrap/dist/css/bootstrap.min.css";
-
 import { Link, useNavigate } from "react-router-dom";
-import styles from "./SignUp.module.css";
-// import { AppContext } from "../../context/application-context";
-import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import {
   notifyIncompleteFields,
@@ -25,6 +10,12 @@ import {
   notifyRegisterationSuccessful,
   notifyAlreadyLoggedIn,
 } from "./utils/toastify-objects";
+import Spinner from "react-bootstrap/Spinner";
+import showSvg from "../assets/show.svg";
+import hideSvg from "../assets/hide.svg";
+import styles from "./SignUp.module.css";
+import "react-toastify/dist/ReactToastify.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const SignUp = () => {
   const [name, setName] = useState("");
@@ -37,10 +28,6 @@ const SignUp = () => {
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const navigate = useNavigate();
-
-  //   const appCtx = useContext(AppContext);
-  //   const user = appCtx.user;
-  //   const setUser = appCtx.setUser;
 
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
@@ -147,9 +134,17 @@ const SignUp = () => {
               </div>
             </Form.Group>
           </div>
-          <Button className={styles.submit_button} type="submit">
-            Sign Up
-          </Button>
+
+          {loading && (
+            <div className={styles.spinner}>
+              <Spinner animation="border" variant="primary" />
+            </div>
+          )}
+          {!loading && (
+            <Button className={styles.submit_button} type="submit">
+              Sign Up
+            </Button>
+          )}
         </Form>
       </div>
 
@@ -166,86 +161,3 @@ const SignUp = () => {
 };
 
 export default SignUp;
-
-{
-  /* <div className={styles.form_field}>
-            <TextField
-              id="standard-basic"
-              label="Full Name"
-              type="text"
-              variant="standard"
-              fullWidth
-              size="small"
-              onChange={(e) => setFullName(e.target.value)}
-            />
-          </div>
-          <div className={styles.form_field}>
-            <TextField
-              id="standard-basic"
-              label="Email"
-              type="email"
-              variant="standard"
-              fullWidth
-              size="small"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div className={styles.form_field}>
-            <TextField
-              id="standard-basic"
-              label="Username"
-              variant="standard"
-              fullWidth
-              size="small"
-              onChange={(e) => setUsername(e.target.value)}
-            />
-          </div>
-
-          <div className={styles.form_field}>
-            <FormControl sx={{ width: "100%" }} variant="standard">
-              <InputLabel htmlFor="standard-adornment-password">
-                Password
-              </InputLabel>
-              <Input
-                id="standard-adornment-password"
-                type={showPassword ? "text" : "password"}
-                onChange={(e) => setPassword(e.target.value)}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
-            </FormControl>
-          </div>
-          <div className={styles.form_field}>
-            <FormControl sx={{ width: "100%" }} variant="standard">
-              <InputLabel htmlFor="standard-adornment-password">
-                Confirm Password
-              </InputLabel>
-              <Input
-                id="standard-adornment-password"
-                type={showConfirmPassword ? "text" : "password"}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={showConfirmPasswordHandler}
-                    >
-                      {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
-            </FormControl>
-          </div>
-          <Button className={styles.submit_button} type="submit">
-            Sign Up
-          </Button> */
-}

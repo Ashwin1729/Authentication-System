@@ -86,3 +86,9 @@
   margin: 5px;
   color: #545454;
 }
+
+.spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
